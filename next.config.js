@@ -18,6 +18,12 @@ const nextConfig = {
   deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
   imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   minimumCacheTTL: 60 * 60 * 24 * 30,
+  // Allow locally-hosted SVG placeholders to pass through next/image.
+  // Hardened with a strict CSP so an inline <script> in a rogue SVG
+  // cannot execute. Safe because we only serve SVGs we author.
+  dangerouslyAllowSVG: true,
+  contentDispositionType: "attachment",
+  contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   remotePatterns: [
     {
       protocol: "https",

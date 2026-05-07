@@ -3,22 +3,56 @@
 @tailwind components;
 @tailwind utilities; */
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
 
 @theme {
+
   --color-brand-50: #f0f4ff;
-  --color-brand-100: #e0eaff;
   --color-brand-200: #c7d7fe;
-  --color-brand-300: #a5b8fc;
-  --color-brand-400: #818cf8;
   --color-brand-500: #6366f1;
   --color-brand-600: #4f46e5;
   --color-brand-700: #4338ca;
-  --color-brand-800: #3730a3;
-  --color-brand-900: #312e81;
   --color-brand-950: #1e1b4b;
 
   --color-accent-500: #f97316;
-  --color-accent-600: #ea580c;
+
+    /* ── Brand — Dark Surface (primary background system) ──────────
+      Neutral dark surfaces keep the site grounded while the acid
+      color remains the only green accent in the interface. */
+    --color-brand-dark:       #162531;   /* Primary dark surface */
+    --color-brand-dark-2:     #1f2f3c;   /* Lifted dark surface */
+    --color-brand-dark-deep:  #0f1419;   /* Deep dark edge / text-on-acid */
+
+  --color-text-on-dark:        #f0ede5;
+  --color-text-on-dark-soft:   #f0ede5;
+  --color-text-on-dark-muted:  #f0ede5;
+  --color-text-on-dark-faint:  #f0ede5;
+
+  /* ── Brand — Acid Green (primary CTA / accent) ──────────────────
+     Saturated chartreuse used for key conversion points. Pairs
+     with dark text (brand-dark) at 15+:1 contrast (AAA). */
+  --color-brand-acid:        #cff547;  /* Primary acid accent */
+  --color-brand-acid-hover:  #b8dc2e;  /* Darker on hover */
 
   --color-neutral-50: #f8fafc;
   --color-neutral-100: #f1f5f9;
@@ -30,7 +64,54 @@
   --color-neutral-700: #334155;
   --color-neutral-800: #1e293b;
   --color-neutral-900: #0f172a;
-  --color-neutral-950: #020617;
+}
+
+:root {
+  --background: oklch(0.98 0.002 90);
+  --foreground: oklch(0.12 0 0);
+  --primary: oklch(0.12 0 0);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.96 0.002 90);
+  --secondary-foreground: oklch(0.12 0 0);
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.65 0.15 25);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --input: oklch(0.9 0.002 90);
+  --ring: oklch(0.12 0 0);
+  --radius: 0rem;
+}
+
+.dark {
+  --background: oklch(0.1 0 0);
+  --foreground: oklch(0.95 0 0);
+  --primary: oklch(0.95 0 0);
+  --primary-foreground: oklch(0.1 0 0);
+  --secondary: oklch(0.18 0 0);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted-foreground: oklch(0.6 0 0);
+  --accent: oklch(0.7 0.12 25);
+  --accent-foreground: oklch(0.1 0 0);
+  --input: oklch(0.22 0 0);
+  --ring: oklch(0.5 0 0);
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 
 * ,
@@ -42,11 +123,21 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Anchor links land below the fixed header (h-20 = 80px = 5rem) */
+  scroll-padding-top: 5rem;
+  /*
+    Framer Motion v12 useScroll defaults to document.documentElement as the
+    scroll container when no container ref is provided. It warns when that
+    element has position: static. Setting relative here satisfies the check
+    without affecting fixed/absolute descendants (fixed is always viewport-
+    relative regardless of this; absolute top-level elements behave identically).
+  */
+  position: relative;
 }
 
 body {
-  background-color: var(--color-neutral-50);
-  color: var(--color-neutral-900);
+  background-color: var(--color-brand-dark);
+  color: var(--color-text-on-dark);
   font-size: 1rem;
   line-height: 1.625;
   -webkit-font-smoothing: antialiased;
@@ -63,11 +154,69 @@ body {
   color: var(--color-brand-950);
 }
 
-h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; }
-h2 { font-size: 1.875rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.3; }
-h3 { font-size: 1.5rem;   font-weight: 600; letter-spacing: -0.025em; }
-h4 { font-size: 1.25rem;  font-weight: 600; }
-p  { color: var(--color-neutral-600); line-height: 1.75; }
+/* Base typography — wrapped in @layer base so Tailwind utility classes
+   (e.g. `text-white`, `text-2xl`) always win when applied directly to
+   elements. Without the layer wrapper these raw selectors would load
+   after the utility layer and silently override it. */
+@layer base {
+  h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; }
+  h2 { font-size: 1.875rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.3; }
+  h3 { font-size: 1.5rem;   font-weight: 600; letter-spacing: -0.025em; }
+  h4 { font-size: 1.25rem;  font-weight: 600; }
+  p  { color: var(--color-neutral-600); line-height: 1.75; }
+}
+
+@layer utilities {
+  .text-on-dark {
+    color: var(--color-text-on-dark);
+  }
+
+  .text-on-dark-soft {
+    color: var(--color-text-on-dark-soft);
+  }
+
+  .text-on-dark-muted {
+    color: var(--color-text-on-dark-muted);
+  }
+
+  .text-on-dark-faint {
+    color: var(--color-text-on-dark-faint);
+  }
+}
+
+@keyframes spring-up {
+  0% {
+    transform: translateY(100%) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes spring-down {
+  0% {
+    transform: translateY(-100%) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fall-away {
+  0% {
+    transform: translateY(0) rotate(var(--fall-rotate, 10deg));
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(var(--fall-rotate, 90deg));
+    opacity: 0;
+  }
+}
+
 
 img, picture, video, canvas, svg {
   display: block;
@@ -145,7 +294,7 @@ img, picture, video, canvas, svg {
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-neutral-50);
+  background-color: var(--color-text-on-dark);
   border-color: var(--color-neutral-300);
 }
 
@@ -155,7 +304,7 @@ img, picture, video, canvas, svg {
 }
 
 .btn-ghost:hover {
-  background-color: var(--color-neutral-100);
+  background-color: var(--color-brand-dark-2);
 }
 
 .btn-lg {
@@ -202,8 +351,13 @@ img, picture, video, canvas, svg {
 
 @media (min-width: 1024px) {
   .section { padding: 8rem 0; }
-  h1 { font-size: 3.75rem; }
-  h2 { font-size: 2.25rem; }
+}
+
+@layer base {
+  @media (min-width: 1024px) {
+    h1 { font-size: 3.75rem; }
+    h2 { font-size: 2.25rem; }
+  }
 }
 
 .container-xl {
@@ -259,7 +413,7 @@ img, picture, video, canvas, svg {
 /* Divider */
 .divider {
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--color-neutral-200), transparent);
+  background: linear-gradient(to right, transparent, rgba(240,237,229,0.14), transparent);
 }
 
 /* Animations */
@@ -279,3 +433,434 @@ img, picture, video, canvas, svg {
 .animation-delay-200 { animation-delay: 200ms; }
 .animation-delay-400 { animation-delay: 400ms; }
 
+/* ─── Hero — Dark Surface ─────────────────────────────────────────────── */
+/* Flat hero surface shared by dark promotional sections. */
+.hero-surface {
+  background-color: var(--color-brand-dark);
+  color: white;
+}
+
+/* ─── Hero — Buttons ──────────────────────────────────────────────────── */
+.btn-hero-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 9999px;
+  min-height: 3.5rem;   /* 56px — выше WCAG 2.5.5 (44px target size) */
+  padding: 0 2rem;
+  color: white;
+  background-color: transparent;
+  /*
+    WCAG 1.4.11 Non-text Contrast fix:
+    Прежнее значение rgba(255,255,255,0.25) давало ~1.5:1 против тёмной surface-базы — провал.
+    rgba(255,255,255,0.55) → вычисленный border ~rgb(145,168,161):
+      contrast vs dark surface remains safely above 3:1 ✓
+  */
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  transition: background-color 0.2s ease-out, border-color 0.2s ease-out, transform 0.15s ease-out;
+  white-space: nowrap;
+}
+
+.btn-hero-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+/* Тактильная обратная связь на touch-устройствах */
+.btn-hero-ghost:active {
+  transform: scale(0.97);
+  background-color: rgba(255, 255, 255, 0.10);
+}
+
+.btn-hero-acid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1rem;
+  /* rounded-full — одинаковый с btn-hero-ghost */
+  border-radius: 9999px;
+  min-height: 3.5rem;
+  padding: 0 2rem;
+  color: var(--color-brand-dark-deep);
+  background-color: var(--color-brand-acid);
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease-out, transform 0.2s ease-out;
+  white-space: nowrap;
+}
+
+.btn-hero-acid:hover {
+  background-color: var(--color-brand-acid-hover);
+  transform: scale(1.02);
+  /* Acid glow on hover — subtle halo, не перебивает текст */
+  box-shadow:
+    0 0 0   1px  rgba(207, 245, 71, 0.35),
+    0 0  20px 2px rgba(207, 245, 71, 0.25),
+    0 8px 24px 0  rgba(0, 0, 0, 0.30);
+}
+
+.btn-hero-acid:active {
+  transform: scale(0.98);
+}
+
+/* ─── Hero — Review Badge ─────────────────────────────────────────────── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem 0.375rem 0.375rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.hero-badge__star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-brand-acid);
+  color: var(--color-brand-dark-deep);
+  flex-shrink: 0;
+}
+
+/* ─── Hero — Accent Text ──────────────────────────────────────────────── */
+/* Use the acid brand color to highlight words inside the H1. */
+.text-brand-acid { color: var(--color-brand-acid); }
+
+/* ─── Hero — Infinite Horizontal Marquee ──────────────────────────────── */
+/* The track holds two concatenated copies of the image list and slides
+   by 50% over a fixed duration, producing a seamless loop. Hover
+   pauses the scroll for a chance to inspect a project thumbnail.
+
+   Accessibility: the animation is disabled for users who've opted
+   into `prefers-reduced-motion: reduce`. */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+
+.marquee__track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  animation: marquee-x 45s linear infinite;
+  will-change: transform;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
+
+.marquee__item {
+  position: relative;
+  flex-shrink: 0;
+  width: 18rem;
+  aspect-ratio: 4 / 3;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+@media (min-width: 640px) {
+  .marquee__item { width: 24rem; }
+}
+
+@media (min-width: 1024px) {
+  .marquee__item { width: 30rem; }
+  .marquee__track { gap: 1.5rem; }
+}
+
+.marquee__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Hero — Tech Scroll Band
+   ───────────────────────────────────────────────────────────────────────────
+   Two oversized ticker rows embedded at the base of the Hero section.
+
+   Seamless loop — 4× duplication strategy
+   ────────────────────────────────────────
+   Each track holds FOUR identical copies of the item list:
+       [A B C D E] × 4 = [A B C D E | A B C D E | A B C D E | A B C D E]
+       ←────── 25% ──────→
+   The animation translates the track by exactly –25 % (one copy's width).
+   When it loops back to 0 %, that position shows the same items as –25 %
+   did — identical copies, invisible seam, no blank gap ever appears.
+
+   Why 4× instead of 2×:
+   At large sizes (text-6xl icons h-20) five items easily exceed the
+   viewport. With 4 copies the total track is ~4× the viewport width,
+   so the viewport is always filled regardless of screen size.
+
+   Row height:  controlled by Tailwind h-[15vh] on each row element.
+   All sizing (font, icon, gap, padding) is via Tailwind utility classes
+   in HeroTechBand.tsx. This file contains only what Tailwind cannot do:
+     • @keyframes (custom names)
+     • mask-image  (edge-fade — no Tailwind equivalent)
+     • parent-hover pause  (.row:hover .track — no Tailwind equivalent)
+     • prefers-reduced-motion  (globally scoped)
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* ── Keyframes ─────────────────────────────────────────────────── */
+/* Move by exactly 25 % of total track = width of one copy → gapless */
+@keyframes tech-scroll-left {
+  from { transform: translateX(0);    }
+  to   { transform: translateX(-25%); }
+}
+@keyframes tech-scroll-right {
+  from { transform: translateX(-25%); }
+  to   { transform: translateX(0);    }
+}
+
+/* ── Row wrapper ───────────────────────────────────────────────── */
+/* Clips content vertically & horizontally, applies edge-fade mask. */
+/* Height is set by Tailwind h-[15vh] on the element. */
+.tech-scroll-row {
+  overflow: hidden;
+  display:  flex;
+  align-items: center;
+  /* Soft fade-out at left & right edges */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent  0%,
+    #000         7%,
+    #000        93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent  0%,
+    #000         7%,
+    #000        93%,
+    transparent 100%
+  );
+}
+
+/* ── Tracks ─────────────────────────────────────────────────────── */
+.tech-scroll-track--left {
+  animation:    tech-scroll-left  50s linear infinite;
+  will-change:  transform;
+}
+.tech-scroll-track--right {
+  animation:    tech-scroll-right 50s linear infinite;
+  will-change:  transform;
+}
+
+/* Pause both tracks when the user hovers anywhere on the row */
+.tech-scroll-row:hover .tech-scroll-track--left,
+.tech-scroll-row:hover .tech-scroll-track--right {
+  animation-play-state: paused;
+}
+
+/* Kill scroll for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .tech-scroll-track--left,
+  .tech-scroll-track--right { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Hero — Digital Noise Texture
+   ───────────────────────────────────────────────────────────────────────────
+   Добавляет SVG-шум через ::before на секцию с классом .hero-noise.
+   SVG feTurbulence — нативный, без PNG-файла, <1 КБ, нет сетевого запроса.
+   mix-blend-mode: overlay → шум взаимодействует с фоном, не мешает тексту.
+   opacity: 0.04 — имитирует матовую бумагу/про-монитор.
+   pointer-events: none — никакого влияния на интерактивность.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.hero-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;           /* над фоном, под контентом */
+  pointer-events: none;
+  border-radius: inherit;
+  /* SVG feTurbulence: fractalNoise, 4 октавы, стыкованные тайлы 256×256 */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  background-repeat: repeat;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Portrait Card — CSS-only Hover Lift & Tilt
+   ───────────────────────────────────────────────────────────────────────────
+   Работает без JS и без 'use client' — чистый CSS.
+   perspective(1000px) + rotateX/Y → ощущение 3D-наклона.
+   translateY(-10px) → «парение» над поверхностью.
+   box-shadow усиливает глубину + acid glow по краю.
+   prefers-reduced-motion: убирает transform, оставляет тень.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.portrait-card {
+  transition:
+    transform  0.55s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
+
+.portrait-card:hover {
+  transform: perspective(1000px) rotateX(-4deg) rotateY(5deg) translateY(-10px);
+  box-shadow:
+    10px 20px 60px rgba(0, 0, 0, 0.55),
+     0   0  24px rgba(207, 245, 71, 0.12),   /* acid edge glow */
+     0   0   0 2px rgba(207, 245, 71, 0.25); /* усиливает acid border */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-card { transition: box-shadow 0.3s ease; }
+  .portrait-card:hover {
+    transform: none;
+    box-shadow: 0 0 24px rgba(207, 245, 71, 0.18);
+  }
+}
+
+/*
+  Touch-устройства: hover-состояния «прилипают» после тапа.
+  Отключаем 3D-трансформацию там, где нет настоящего hover.
+*/
+@media (hover: none) {
+  .portrait-card:hover { transform: none; box-shadow: none; }
+  .btn-hero-acid:hover { box-shadow: none; transform: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Назгул — Signature Font: Mobile Legibility
+   ───────────────────────────────────────────────────────────────────────────
+   Проблема: Dancing Script имеет тонкие штрихи, которые теряются на ретине
+   при малых размерах и CSS-трансформациях (rotate → subpixel anti-aliasing).
+
+   Решение:
+   1. -webkit-text-stroke 0.4px — добавляет толщину без изменения формы гляфа
+   2. paint-order: stroke fill — stroke рисуется под fill, сохраняет чистоту
+   3. Двойная тень: acid-glow + тёмный drop → читаемо на любом оттенке фона
+   4. letter-spacing: 0.01em — cursive глифы нуждаются в пространстве
+   5. translateZ(0) + backface-visibility — принудительный GPU layer,
+      устраняет subpixel-blur iOS при rotate(-5deg)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.signature-text {
+  -webkit-text-stroke: 0.4px rgba(207, 245, 71, 0.35);
+  paint-order: stroke fill;
+  text-shadow:
+    0 0  30px rgba(207, 245, 71, 0.4),   /* acid glow — бренд-свечение */
+    0 2px  8px rgba(0,   0,   0, 0.55);  /* тёмный drop — контраст с любым фоном */
+  /* GPU-слой: устраняет subpixel-размытие при rotate на iOS */
+  transform: rotate(-5deg) translateX(-8px) translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Небольшой positive LS: cursive глифам нужно дышать */
+  letter-spacing: 0.015em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Performance: below-fold sections
+   ───────────────────────────────────────────────────────────────────────────
+   content-visibility: auto → браузер пропускает layout/paint невидимых секций.
+   Использование: добавь класс .below-fold к <Features>, <Faq>, <CtaBanner>.
+   contain-intrinsic-size даёт приблизительную высоту до первого рендера,
+   предотвращая прыжки скролл-бара.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Hero — Entry Animations (CSS-only, no JS, no 'use client')
+   ───────────────────────────────────────────────────────────────────────────
+   Two flavours:
+     .hero-enter           → fade + slide up   (text column, CTAs)
+     .hero-enter-right     → fade + slide left  (portrait column)
+   animation-fill-mode: both → elements start invisible; no flash of unstyled
+   content even at slow connections.
+   Delay is applied via inline style={{ animationDelay }} for fine stagger control.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes hero-slide-left {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+
+.hero-enter {
+  animation: hero-rise       0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-enter-right {
+  animation: hero-slide-left 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Scroll Reveal — below-fold sections
+   ───────────────────────────────────────────────────────────────────────────
+   Components that use <ScrollReveal> start in the hidden state and
+   transition to visible when IntersectionObserver fires.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity   0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Kill / soften all motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter,
+  .hero-enter-right {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

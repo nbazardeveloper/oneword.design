@@ -85,14 +85,14 @@ export function handleWebVitals(metric: {
   id: string;
   name: string;
   value: number;
-  delta: number;
+  delta?: number;
   label: string;
 }): void {
   const typedMetric: WebVitalMetric = {
     id:     metric.id,
     name:   metric.name as WebVitalMetric["name"],
     value:  metric.value,
-    delta:  metric.delta,
+    delta:  metric.delta ?? 0,
     label:  metric.label as WebVitalMetric["label"],
     rating: getRating(metric.name as WebVitalMetric["name"], metric.value),
   };

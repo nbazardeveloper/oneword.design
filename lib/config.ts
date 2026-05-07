@@ -30,7 +30,7 @@ export const SITE_CONFIG = {
   pixelId: process.env.NEXT_PUBLIC_PIXEL_ID ?? "",
 
   // Contact
-  email:     "info@oneword.designs",
+  email:     "oneworddevstudio@gmail.com",
   telephone: "+1 (555) 000-0000",
 } as const;
 
@@ -44,25 +44,23 @@ export const SEO_LIMITS = {
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 export const NAV_ITEMS = [
-  { label: "Features",  href: "/#features"  },
-  { label: "Pricing",   href: "/pricing"    },
-  { label: "Blog",      href: "/blog"       },
-  { label: "About",     href: "/about"      },
+  { label: "Projects", href: "/projects" },
+  { label: "Pricing",  href: "/pricing"  },
+  { label: "About",    href: "/about"    },
+  { label: "Contact",  href: "/#contacts" },
 ] as const;
 
 // ─── Footer Links ─────────────────────────────────────────────────────────────
 export const FOOTER_LINKS = {
   product:  [
-    { label: "Features", href: "/#features" },
-    { label: "Pricing",  href: "/pricing"   },
-    { label: "Changelog",href: "/changelog" },
-    { label: "Roadmap",  href: "/roadmap"   },
+    { label: "Projects", href: "/projects" },
+    { label: "Pricing",  href: "/pricing"  },
+    { label: "Contact",  href: "/#contacts" },
   ],
   company: [
     { label: "About",    href: "/about"    },
-    { label: "Blog",     href: "/blog"     },
-    { label: "Careers",  href: "/careers"  },
-    { label: "Press",    href: "/press"    },
+    { label: "Projects", href: "/projects" },
+    { label: "Contact",  href: "/#contacts" },
   ],
   legal: [
     { label: "Privacy",  href: "/privacy"  },

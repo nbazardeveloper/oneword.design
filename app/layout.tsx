@@ -13,8 +13,9 @@ import {
   buildWebsiteSchema,
   JsonLd,
 } from "@/schemas/jsonld";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+import Header         from "@/components/layout/Header";
+import Footer         from "@/components/layout/Footer";
+import LenisProvider  from "@/components/providers/LenisProvider";
 
 // ─── Font Optimization ────────────────────────────────────────────────────────
 // next/font eliminates FOIT/FOUT and self-hosts — zero layout shift.
@@ -47,6 +48,8 @@ export const viewport: Viewport = {
   initialScale:       1,
   themeColor:         SITE_CONFIG.themeColor,
   colorScheme:        "light",
+  // Required for env(safe-area-inset-*) to work on iPhone notch / Dynamic Island
+  viewportFit:        "cover",
 };
 
 // ─── Web Vitals Reporter ──────────────────────────────────────────────────────
@@ -62,6 +65,7 @@ export default function RootLayout({
     <html
       lang={SITE_CONFIG.language}
       className={`${inter.variable} ${plusJakarta.variable}`}
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <head>
@@ -69,29 +73,19 @@ export default function RootLayout({
         <JsonLd data={buildOrganizationSchema()} />
         <JsonLd data={buildWebsiteSchema()} />
 
-        {/* ── DNS Prefetch / Preconnect for performance ──────────────── */}
-        <link rel="dns-prefetch"    href="//www.google-analytics.com" />
-        <link rel="dns-prefetch"    href="//www.googletagmanager.com" />
-        <link rel="preconnect"      href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
+        {/* ── DNS Prefetch for analytics ─────────────────────────────── */}
+        {/* Note: Google Fonts preconnects removed — next/font self-hosts fonts */}
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 
         {/* ── Manifest / Icons ───────────────────────────────────────── */}
         <link rel="manifest"    href="/site.webmanifest" />
         <link rel="icon"        href="/favicon.ico"               sizes="any" />
-        <link rel="icon"        href="/icon.svg"                  type="image/svg+xml" />
+        <link rel="icon"        href="/icon.webp"                 type="image/webp" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
 
       <body className="font-sans antialiased bg-neutral-50 text-neutral-900">
-        {/* ── Skip Navigation (A11y — keyboard users) ─────────────────── */}
-        <a href="#main-content" className="skip-nav">
-          Skip to main content
-        </a>
-
         {/* ── Site Layout ─────────────────────────────────────────────── */}
         <div className="flex min-h-screen flex-col">
           <Header />
@@ -100,9 +94,11 @@ export default function RootLayout({
             id="main-content"
             role="main"
             className="flex-1"
-            tabIndex={-1}       // Allows focus target for skip-nav
+            tabIndex={-1}
           >
-            {children}
+            <LenisProvider>
+              {children}
+            </LenisProvider>
           </main>
 
           <Footer />

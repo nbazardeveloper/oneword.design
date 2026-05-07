@@ -27,13 +27,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority:       1.0,
     },
     {
-      url:            `${baseUrl}/features`,
+      url:            `${baseUrl}/pricing`,
       lastModified:   now,
-      changeFrequency:"monthly",
+      changeFrequency:"weekly",
       priority:       0.9,
     },
     {
-      url:            `${baseUrl}/pricing`,
+      url:            `${baseUrl}/projects`,
       lastModified:   now,
       changeFrequency:"weekly",
       priority:       0.9,
@@ -43,18 +43,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified:   now,
       changeFrequency:"monthly",
       priority:       0.7,
-    },
-    {
-      url:            `${baseUrl}/blog`,
-      lastModified:   now,
-      changeFrequency:"daily",
-      priority:       0.8,
-    },
-    {
-      url:            `${baseUrl}/contact`,
-      lastModified:   now,
-      changeFrequency:"yearly",
-      priority:       0.6,
     },
     {
       url:            `${baseUrl}/privacy`,

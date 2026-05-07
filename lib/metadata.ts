@@ -99,6 +99,13 @@ export function generateMetadata(props: SeoMetadataProps, isHomePage = false): M
     title:          formattedTitle,
     description:    validatedDesc,
     keywords:       keywords.length ? keywords.join(", ") : undefined,
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/icon.webp', type: 'image/webp' },
+      ],
+      apple: '/apple-touch-icon.png',
+    },
 
     // ── Canonical ─────────────────────────────────────────────────
     alternates: {

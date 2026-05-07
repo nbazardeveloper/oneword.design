@@ -1,11 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SITE_CONFIG, FOOTER_LINKS } from "@/lib/config";
+import ContactLink from "@/components/ui/ContactLink";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer role="contentinfo" className="bg-neutral-950 text-neutral-400">
+    <footer role="contentinfo" className="bg-brand-dark text-neutral-400">
       <div className="container-xl py-16">
         {/* ── Top: Brand + Link columns ─────────────────────────────── */}
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
@@ -18,40 +20,34 @@ export default function Footer() {
               className="flex items-center gap-2 font-bold text-white text-lg
                          font-[family-name:var(--font-jakarta)] w-fit"
             >
-              <span
-                className="h-7 w-7 rounded-lg bg-brand-500 flex items-center justify-center
-                           text-white text-sm font-black"
-                aria-hidden="true"
-              >
-                {SITE_CONFIG.name[0]}
-              </span>
-              {SITE_CONFIG.name}
+              <Image
+                src="/icon.webp"
+                alt=""
+                width={128}
+                height={128}
+                className="h-24 w-24 md:h-32 md:w-32 object-contain"
+              />
             </Link>
             <p className="text-sm text-neutral-400 max-w-xs leading-relaxed">
               {SITE_CONFIG.tagline}
             </p>
 
             {/* Social links */}
-            <nav aria-label="Social media links" className="flex gap-3 mt-2">
-              {[
-                { label: "Twitter / X",  href: `https://twitter.com/${SITE_CONFIG.social.twitter}`,    icon: "𝕏"  },
-                { label: "GitHub",       href: `https://github.com/${SITE_CONFIG.social.github}`,      icon: "GH" },
-                { label: "LinkedIn",     href: `https://linkedin.com/${SITE_CONFIG.social.linkedin}`,  icon: "in" },
-              ].map((s) => (
+            {SITE_CONFIG.social.instagram !== "yourbrand" ? (
+              <nav aria-label="Social media links" className="flex gap-3 mt-2">
                 <a
-                  key={s.label}
-                  href={s.href}
+                  href={`https://instagram.com/${SITE_CONFIG.social.instagram}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Follow us on ${s.label}`}
-                  className="h-8 w-8 rounded-lg bg-neutral-800 flex items-center justify-center
-                             text-xs font-bold text-neutral-400 hover:text-white hover:bg-neutral-700
+                  aria-label="Follow us on Instagram"
+                  className="h-8 w-8 rounded-lg bg-brand-dark-2 flex items-center justify-center
+                             text-xs font-bold text-neutral-400 hover:text-white hover:bg-brand-dark-deep
                              transition-colors duration-150"
                 >
-                  {s.icon}
+                  IG
                 </a>
-              ))}
-            </nav>
+              </nav>
+            ) : null}
           </div>
 
           {/* Product links */}
@@ -62,12 +58,18 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5" role="list">
               {FOOTER_LINKS.product.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-neutral-400 hover:text-neutral-100 transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.href === "/#contacts" ? (
+                    <ContactLink className="text-sm text-neutral-400 hover:text-neutral-100 transition-colors">
+                      {link.label}
+                    </ContactLink>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-neutral-400 hover:text-neutral-100 transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -81,12 +83,18 @@ export default function Footer() {
             <ul className="flex flex-col gap-2.5" role="list">
               {FOOTER_LINKS.company.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-neutral-400 hover:text-neutral-100 transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.href === "/#contacts" ? (
+                    <ContactLink className="text-sm text-neutral-400 hover:text-neutral-100 transition-colors">
+                      {link.label}
+                    </ContactLink>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-neutral-400 hover:text-neutral-100 transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

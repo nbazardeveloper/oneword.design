@@ -1,25 +1,32 @@
-"use client";
-
+import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
+import HowIWork from "@/components/sections/HowIWork";
+import Services from "@/components/sections/Services";
+import CtaBanner from "@/components/sections/CtaBanner";
+import DefaultDemo from "@/components/ui/demo";
+import DemoWordcloudChart from "@/components/ui/word-cloud-demo";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 import { JsonLd, buildFaqSchema } from "@/schemas/jsonld";
 
-const Features  = dynamic(() => import("@/components/sections/Features"));
 const Faq       = dynamic(() => import("@/components/sections/Faq"));
-const CtaBanner = dynamic(() => import("@/components/sections/CtaBanner"), { ssr: false });
 
 const FAQ_ITEMS = [
   {
-    question: "How does this Next.js starter achieve Lighthouse 100?",
-    answer: "By combining next/font for zero layout shift, next/image for optimal LCP, dynamic imports for code splitting, lazyOnload scripts for third-parties, and Tailwind CSS for minimal CSS footprint.",
+    question: "How long does it take to build a business website?",
+    answer: "Most projects take between 2 and 3 weeks depending on the scope, number of pages, and how quickly feedback is provided. Smaller brochure sites can move faster, while larger custom builds or SEO-heavy projects may take longer.",
   },
   {
-    question: "Is TypeScript required?",
-    answer: "Yes. All components use strict TypeScript for type safety, better DX, and fewer runtime errors in production.",
+    question: "Do you build custom websites or use templates?",
+    answer: "I build websites from scratch around your business goals, services, and audience. That means better performance, cleaner design, stronger SEO foundations, and a site that does not look like every other template-based business website.",
   },
   {
-    question: "How is the SEO metadata managed?",
-    answer: "A centralized generateMetadata() function handles titles, descriptions, canonical URLs, OpenGraph, Twitter Cards, and robots directives from a single call per page.",
+    question: "Can you help my website rank better on Google?",
+    answer: "Yes. SEO is built into the process from the start through site structure, keyword-focused page content, technical SEO, metadata, speed optimisation, and local search improvements. If you need ongoing growth, monthly SEO support is also available.",
+  },
+  {
+    question: "What do you need from me to get started?",
+    answer: "Usually I need a short discovery call, a clear idea of your services, any existing branding or content, and examples of websites you like. If you do not have everything ready, I can help structure the content and guide the process.",
   },
 ];
 
@@ -28,26 +35,32 @@ export default function HomePage() {
     <>
       <JsonLd data={buildFaqSchema({ items: FAQ_ITEMS })} />
       <Hero
-        badge="Production Ready"
-        headline="Build faster. Rank higher."
-        subheadline="A Next.js 14 starter engineered for Lighthouse 100, advanced SEO, and clean architecture. Ship your best product from day one."
-        ctaPrimary={{ label: "Get Started Free", href: "/signup", ariaLabel: "Get started with a free account" }}
-        ctaSecondary={{ label: "View on GitHub", href: "https://github.com", ariaLabel: "View source code on GitHub" }}
-        image={{
-          src:    "/images/hero.webp",
-          alt:    "Dashboard preview of the Next.js SEO starter",
-          width:  1200,
-          height: 800,
+        headline="Your website should attract more clients."
+        subheadline="I design and build fast, SEO-optimised websites for businesses serious about growth. Custom-coded from scratch — no templates, no page builders, no compromises."
+        ctaPrimary={{
+          label:     "Explore My Works",
+          href:      "/projects",
+          ariaLabel: "Explore our featured projects",
         }}
-        stats={[
-          { value: "100",   label: "Lighthouse Score" },
-          { value: "<50ms", label: "TTFB"             },
-          { value: "A11y",  label: "WCAG 2.1 AA"      },
-        ]}
+        ctaSecondary={{
+          label:     "Let's Build Something Great",
+          href:      "/#contacts",
+          ariaLabel: "Get in touch to start a new project",
+        }}
       />
-      <Features />
-      <Faq items={FAQ_ITEMS} />
-      <CtaBanner />
+      <DemoWordcloudChart />
+      <DefaultDemo />
+      <HowIWork />
+      <Suspense fallback={<div className="section animate-pulse bg-neutral-100 h-40" />}>
+        <ScrollReveal delay={80}>
+          <Faq items={FAQ_ITEMS} />
+        </ScrollReveal>
+      </Suspense>
+      <Suspense fallback={<div className="section animate-pulse bg-neutral-100 h-32" />}>
+        <ScrollReveal delay={0}>
+          <CtaBanner />
+        </ScrollReveal>
+      </Suspense>
     </>
   );
 }
