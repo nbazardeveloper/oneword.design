@@ -135,12 +135,10 @@ export default function Hero({
           */}
           <div
             className="
-              hero-enter-right
               order-2 flex flex-col items-center
               lg:col-start-2 lg:row-start-1 lg:row-span-2
               lg:items-end lg:self-center
             "
-            style={{ animationDelay: "150ms" }}
           >
 
             {/*
