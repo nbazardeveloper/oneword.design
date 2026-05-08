@@ -20,7 +20,7 @@ export const SITE_CONFIG = {
   },
 
   // Default OG image (absolute URL)
-  defaultOgImage: "/og/default.jpg",
+  defaultOgImage: "/images/projects/oneword-project-beauty-websitemobil.webp",
   ogImageWidth:   1200,
   ogImageHeight:  630,
 

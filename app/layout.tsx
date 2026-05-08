@@ -5,7 +5,6 @@ import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "@/styles/globals.css";
 
 import { SITE_CONFIG }         from "@/lib/config";
-import { generateHomeMetadata } from "@/lib/metadata";
 import {
   buildOrganizationSchema,
   buildWebsiteSchema,
@@ -39,7 +38,72 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
-export const metadata: Metadata = generateHomeMetadata();
+const homeDescriptionOptions = {
+  performance:
+    "High-end websites for small businesses, built for speed, technical SEO, and strong search visibility.",
+  business:
+    "High-end websites for small businesses that help local brands build trust, win more enquiries, and grow with impact.",
+} as const;
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_CONFIG.url),
+  title: "High-End Websites For Small Businesses | Oneword",
+  description: homeDescriptionOptions.business,
+  applicationName: SITE_CONFIG.name,
+  referrer: "origin-when-cross-origin",
+  creator: SITE_CONFIG.name,
+  publisher: SITE_CONFIG.name,
+  keywords: [
+    "high-end websites for small businesses",
+    "small business web design",
+    "small business website development",
+    "agency websites",
+    "local business websites",
+    "website design for small businesses",
+  ],
+  alternates: {
+    canonical: SITE_CONFIG.url,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: "High-End Websites For Small Businesses | Oneword",
+    description: homeDescriptionOptions.business,
+    url: SITE_CONFIG.url,
+    siteName: SITE_CONFIG.name,
+    locale: SITE_CONFIG.locale,
+    type: "website",
+    images: [
+      {
+        url: `${SITE_CONFIG.url}${SITE_CONFIG.defaultOgImage}`,
+        width: SITE_CONFIG.ogImageWidth,
+        height: SITE_CONFIG.ogImageHeight,
+        alt: "Oneword high-end websites for small businesses",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "High-End Websites For Small Businesses | Oneword",
+    description: homeDescriptionOptions.business,
+    images: [`${SITE_CONFIG.url}${SITE_CONFIG.defaultOgImage}`],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.webp", type: "image/webp" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+};
 
 // ─── Viewport ─────────────────────────────────────────────────────────────────
 export const viewport: Viewport = {
