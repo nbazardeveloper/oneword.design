@@ -73,6 +73,16 @@ export default function RootLayout({
         <JsonLd data={buildOrganizationSchema()} />
         <JsonLd data={buildWebsiteSchema()} />
 
+        {/* ── LCP preload — hero portrait ────────────────────────────── */}
+        {/* Explicit preload ensures browser fetches developer.webp at highest
+            priority before JS hydration, regardless of static export mode.   */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/developer.webp"
+          fetchPriority="high"
+        />
+
         {/* ── DNS Prefetch for analytics ─────────────────────────────── */}
         {/* Note: Google Fonts preconnects removed — next/font self-hosts fonts */}
         <link rel="dns-prefetch" href="//www.google-analytics.com" />

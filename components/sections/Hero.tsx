@@ -34,7 +34,7 @@ import ContactLink      from "@/components/ui/ContactLink";
 const signature = Dancing_Script({
   subsets: ["latin"],
   weight:  ["700"],
-  display: "swap",
+  display: "optional",
 });
 
 export default function Hero({
