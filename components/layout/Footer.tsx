@@ -123,16 +123,16 @@ export default function Footer() {
         {/* ── Bottom: copyright ─────────────────────────────────────── */}
         <div className="divider mt-12 mb-6" />
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-neutral-500">
+          <p className="text-xs text-neutral-400">
             &copy; {year} {SITE_CONFIG.name}. All rights reserved.
           </p>
-          <p className="text-xs text-neutral-500">
+          <p className="text-xs text-neutral-400">
             Built with{" "}
             <a
               href="https://nextjs.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-white transition-colors"
+              className="underline underline-offset-2 hover:text-white transition-colors"
               aria-label="Built with Next.js (opens in new tab)"
             >
               Next.js

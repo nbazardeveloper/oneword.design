@@ -1,27 +1,8 @@
 'use client';
-import React from 'react';
-import Lenis from 'lenis';
 import TestimonialV2 from '@/components/ui/testimonial-v2';
 import { ZoomParallax } from '@/components/ui/zoom-parallax';
 
 export default function DefaultDemo() {
-	React.useEffect(() => {
-		const lenis = new Lenis();
-		let frameId = 0;
-
-		function raf(time: number) {
-			lenis.raf(time);
-			frameId = requestAnimationFrame(raf);
-		}
-
-		frameId = requestAnimationFrame(raf);
-
-		return () => {
-			cancelAnimationFrame(frameId);
-			lenis.destroy();
-		};
-	}, []);
-
 	const images = [
 		{
 			src: '/images/projects/oneword-project-limo-website.webp',
@@ -54,7 +35,7 @@ export default function DefaultDemo() {
 	];
 
 	return (
-		<main className="hero-surface min-h-screen w-full text-white">
+		<section aria-label="Featured projects" className="hero-surface min-h-screen w-full text-white">
 			<div className="container-xl pt-8 md:pt-12">
 				<div className="mx-auto mb-10 max-w-3xl text-center md:mb-14">
 					<p
@@ -78,7 +59,7 @@ export default function DefaultDemo() {
 						/>
 						Featured Projects
 					</p>
-					<h1
+					<h2
 						className="text-balance font-bold tracking-tight text-on-dark"
 						style={{
 							fontSize: 'clamp(2.25rem, 5vw, 3.5rem)',
@@ -87,7 +68,7 @@ export default function DefaultDemo() {
 					>
 						Take a look at the projects behind the
 						<span style={{ color: 'var(--color-brand-acid)' }}> results.</span>
-					</h1>
+					</h2>
 					<p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-on-dark-muted md:text-lg">
 						A closer look at the work, layouts, and visual systems used to turn strategy into a site that performs.
 					</p>
@@ -95,6 +76,6 @@ export default function DefaultDemo() {
 			</div>
 			<ZoomParallax images={images} />
 			<TestimonialV2 />
-		</main>
+		</section>
 	);
 }

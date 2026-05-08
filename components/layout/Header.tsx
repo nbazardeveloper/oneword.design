@@ -35,7 +35,7 @@ export default function Header() {
       <nav className="container-xl flex h-24 md:h-32 items-center justify-between">
 
         {/* ── Logo ─────────────────────────────────────────────────── */}
-        <Link href="/" className="group flex items-center">
+        <Link href="/" aria-label={`${SITE_CONFIG.name} — home`} className="group flex items-center">
           <div className="relative h-20 w-20 md:h-28 md:w-28 flex items-center justify-center shrink-0">
             <Image
               src="/icon.webp"
