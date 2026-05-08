@@ -66,6 +66,43 @@ export const ContainerAnimated = React.forwardRef<
 ContainerAnimated.displayName = "ContainerAnimated";
 
 export function CtaSectionWithGallery() {
+  const formEndpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT ?? "";
+  const [submitState, setSubmitState] = React.useState<"idle" | "submitting" | "success" | "error" | "unconfigured">("idle");
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (!formEndpoint) {
+      setSubmitState("unconfigured");
+      return;
+    }
+
+    setSubmitState("submitting");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.set("_subject", "New website enquiry from oneword.design");
+
+    try {
+      const response = await fetch(formEndpoint, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Formspree request failed");
+      }
+
+      form.reset();
+      setSubmitState("success");
+    } catch {
+      setSubmitState("error");
+    }
+  }
+
   return (
     <section id="contacts" className="hero-surface w-full">
       <div className="container-xl py-20 md:py-24">
@@ -106,15 +143,13 @@ export function CtaSectionWithGallery() {
               If you need a site that looks sharp, loads fast, and helps your business win more leads, this is the place to start the conversation.
             </ContainerAnimated>
             <ContainerAnimated className="text-sm leading-relaxed text-on-dark-faint">
-              Fill in the form and your email app will open a message addressed to oneworddevstudio@gmail.com.
+              Fill in the form and your message will be sent securely to oneworddevstudio@gmail.com.
             </ContainerAnimated>
           </ContainerStagger>
 
           <ContainerAnimated>
             <form
-              action="mailto:oneworddevstudio@gmail.com"
-              method="post"
-              encType="text/plain"
+              onSubmit={handleSubmit}
               className="md:px-2"
             >
               <div className="grid gap-4 sm:grid-cols-2">
@@ -124,6 +159,7 @@ export function CtaSectionWithGallery() {
                     type="text"
                     name="name"
                     required
+                    autoComplete="name"
                     className="h-12 rounded-xl border border-white/10 bg-white/[0.04] px-4 text-on-dark placeholder:text-on-dark-faint focus:border-[var(--color-brand-acid)] focus:outline-none"
                     placeholder="Your name"
                   />
@@ -135,6 +171,7 @@ export function CtaSectionWithGallery() {
                     type="email"
                     name="email"
                     required
+                    autoComplete="email"
                     className="h-12 rounded-xl border border-white/10 bg-white/[0.04] px-4 text-on-dark placeholder:text-on-dark-faint focus:border-[var(--color-brand-acid)] focus:outline-none"
                     placeholder="you@example.com"
                   />
@@ -147,6 +184,7 @@ export function CtaSectionWithGallery() {
                   type="tel"
                   name="phone"
                   required
+                  autoComplete="tel"
                   className="h-12 rounded-xl border border-white/10 bg-white/[0.04] px-4 text-on-dark placeholder:text-on-dark-faint focus:border-[var(--color-brand-acid)] focus:outline-none"
                   placeholder="Your phone number"
                 />
@@ -164,14 +202,18 @@ export function CtaSectionWithGallery() {
               </label>
 
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm leading-relaxed text-on-dark-faint">
-                  Email recipient: oneworddevstudio@gmail.com
-                </p>
+                <div className="text-sm leading-relaxed text-on-dark-faint">
+                  <p>Email recipient: oneworddevstudio@gmail.com</p>
+                  {submitState === "success" ? <p className="mt-1 text-[color:var(--color-brand-acid)]">Message sent successfully.</p> : null}
+                  {submitState === "error" ? <p className="mt-1 text-red-300">Something went wrong. Please try again.</p> : null}
+                  {submitState === "unconfigured" ? <p className="mt-1 text-amber-300">Add `NEXT_PUBLIC_FORMSPREE_ENDPOINT` to `.env.local` to enable delivery.</p> : null}
+                </div>
                 <Button
                   type="submit"
+                  disabled={submitState === "submitting"}
                   className="btn-hero-acid w-full sm:w-auto"
                 >
-                  Send
+                  {submitState === "submitting" ? "Sending..." : "Send"}
                 </Button>
               </div>
             </form>
