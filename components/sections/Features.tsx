@@ -43,7 +43,7 @@ export default function Features() {
           <h2 id="features-heading" className="mb-4">
             Built for production from day one
           </h2>
-          <p className="text-lg text-neutral-500">
+          <p className="text-lg text-neutral-600">
             Every feature is thoughtfully integrated — no stitching together
             dozens of packages. Just clone, configure, and ship.
           </p>
@@ -66,7 +66,7 @@ export default function Features() {
               <h3 className="text-lg font-semibold text-neutral-900 mb-2">
                 {feature.title}
               </h3>
-              <p className="text-sm text-neutral-500 leading-relaxed">
+              <p className="text-sm text-neutral-600 leading-relaxed">
                 {feature.description}
               </p>
             </li>

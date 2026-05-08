@@ -16,7 +16,6 @@
  * CSS:
  *   .signature-text  — legibility fix (stroke, GPU layer, letter-spacing)
  *   .btn-hero-ghost  — WCAG 1.4.11 border fix (контраст ≥ 3:1)
- *   .portrait-card   — CSS-only hover lift/tilt
  *   .hero-noise      — SVG-шум через ::before
  * Safe area:
  *   viewportFit=cover  → layout.tsx
@@ -169,11 +168,9 @@ export default function Hero({
 
             {/*
               Портретный слот — 3:4, acid-рамка, адаптивный maxWidth
-              .portrait-card → CSS-only hover lift (globals.css)
-              @media (hover: none) отключает transform на touch — нет «прилипания»
             */}
             <div
-              className="portrait-card relative w-full max-w-[200px] sm:max-w-[240px] lg:max-w-[300px] xl:max-w-[320px] rounded-2xl"
+              className="relative w-full max-w-[200px] sm:max-w-[240px] lg:max-w-[300px] xl:max-w-[320px] rounded-2xl"
               style={{
                 aspectRatio: "3/4",
                 border:      "2px solid var(--color-brand-acid)",

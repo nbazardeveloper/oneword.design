@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import type { NextWebVitalsMetric } from "next/app";
 import Script from "next/script";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 
@@ -7,15 +6,15 @@ import "@/styles/globals.css";
 
 import { SITE_CONFIG }         from "@/lib/config";
 import { generateHomeMetadata } from "@/lib/metadata";
-import { handleWebVitals }     from "@/utils/webVitals";
 import {
   buildOrganizationSchema,
   buildWebsiteSchema,
   JsonLd,
 } from "@/schemas/jsonld";
-import Header         from "@/components/layout/Header";
-import Footer         from "@/components/layout/Footer";
-import LenisProvider  from "@/components/providers/LenisProvider";
+import Header            from "@/components/layout/Header";
+import Footer            from "@/components/layout/Footer";
+import LenisProvider     from "@/components/providers/LenisProvider";
+import WebVitalsProvider from "@/components/providers/WebVitalsProvider";
 
 // ─── Font Optimization ────────────────────────────────────────────────────────
 // next/font eliminates FOIT/FOUT and self-hosts — zero layout shift.
@@ -51,11 +50,6 @@ export const viewport: Viewport = {
   // Required for env(safe-area-inset-*) to work on iPhone notch / Dynamic Island
   viewportFit:        "cover",
 };
-
-// ─── Web Vitals Reporter ──────────────────────────────────────────────────────
-export function reportWebVitals(metric: NextWebVitalsMetric): void {
-  handleWebVitals(metric);
-}
 
 // ─── Root Layout ──────────────────────────────────────────────────────────────
 export default function RootLayout({
@@ -96,6 +90,9 @@ export default function RootLayout({
       </head>
 
       <body className="font-sans antialiased bg-neutral-50 text-neutral-900">
+        {/* ── Web Vitals (App Router hook — replaces legacy reportWebVitals) ── */}
+        <WebVitalsProvider />
+
         {/* ── Site Layout ─────────────────────────────────────────────── */}
         <div className="flex min-h-screen flex-col">
           <Header />
