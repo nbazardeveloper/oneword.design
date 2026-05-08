@@ -24,7 +24,7 @@ import LenisProvider  from "@/components/providers/LenisProvider";
 const inter = Inter({
   subsets:  ["latin"],
   variable: "--font-inter",
-  display:  "swap",       // Prevent invisible text during load
+  display:  "optional",   // No FOIT: uses fallback until font is ready, no swap flash
   preload:  true,
   fallback: ["system-ui", "arial"],
 });
@@ -33,7 +33,7 @@ const inter = Inter({
 const plusJakarta = Plus_Jakarta_Sans({
   subsets:  ["latin"],
   variable: "--font-jakarta",
-  display:  "swap",
+  display:  "optional",
   weight:   ["400", "500", "600", "700", "800"],
   preload:  true,
   fallback: ["system-ui", "arial"],
