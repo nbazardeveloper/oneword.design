@@ -123,8 +123,8 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  /* Anchor links land below the fixed header (h-20 = 80px = 5rem) */
-  scroll-padding-top: 5rem;
+  /* Anchor links land below the fixed header (~4rem including breathing room). */
+  scroll-padding-top: 4rem;
   /*
     Framer Motion v12 useScroll defaults to document.documentElement as the
     scroll container when no container ref is provided. It warns when that

@@ -1,7 +1,6 @@
 "use client";
 
 import Link  from "next/link";
-import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { NAV_ITEMS, SITE_CONFIG } from "@/lib/config";
 import ContactLink from "@/components/ui/ContactLink";
@@ -32,20 +31,13 @@ export default function Header() {
          Works only when viewport meta has viewportFit="cover". */
       style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
     >
-      <nav className="container-xl flex h-24 md:h-32 items-center justify-between">
+      <nav className="container-xl flex h-12 md:h-16 items-center justify-between">
 
         {/* ── Logo ─────────────────────────────────────────────────── */}
         <Link href="/" aria-label={`${SITE_CONFIG.name} — home`} className="group flex items-center">
-          <div className="relative h-20 w-20 md:h-28 md:w-28 flex items-center justify-center shrink-0">
-            <Image
-              src="/icon.webp"
-              alt=""
-              width={112}
-              height={112}
-              className="h-20 w-20 md:h-28 md:w-28 object-contain"
-              priority
-            />
-          </div>
+          <span className="text-base font-extrabold uppercase tracking-[0.18em] text-[color:var(--color-brand-acid)] md:text-lg">
+            oneword
+          </span>
         </Link>
 
         {/* ── Desktop Navigation ───────────────────────────────────── */}
@@ -111,7 +103,7 @@ export default function Header() {
       {isMenuOpen && (
         <div
           ref={menuRef}
-          className="md:hidden fixed inset-x-0 top-[64px] bg-brand-dark border-t border-white/10 animate-fade-in shadow-2xl"
+          className="md:hidden fixed inset-x-0 top-[48px] bg-brand-dark border-t border-white/10 animate-fade-in shadow-2xl"
         >
           <ul className="container-xl py-8 flex flex-col gap-4">
             {NAV_ITEMS.map((item) => (

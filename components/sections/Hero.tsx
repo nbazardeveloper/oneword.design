@@ -42,10 +42,10 @@ export default function Hero({
   ctaSecondary,
 }: HeroProps) {
   const phrases = [
-    "generate more leads",
-    "close more sales",
-    "scale your brand",
-    "outperform competitors",
+    "win more leads",
+    "close more deals",
+    "grow your brand",
+    "stay ahead",
   ];
 
   return (
@@ -53,11 +53,11 @@ export default function Hero({
 
       {/* ═══════════════════════ КОНТЕНТ ════════════════════════ */}
       {/*
-        Золотая треть: pt = высота хедера (h-20 = 80px) + минимальный буфер.
+        Золотая треть: pt = уменьшенная высота хедера + минимальный буфер.
         pb сбалансирован с pt, чтобы flex items-center давал истинный вертикальный центр.
         Результат: визуальный центр контента ≈ 38–42% высоты экрана.
       */}
-      <div className="relative z-10 flex-1 flex items-center pt-28 md:pt-20 pb-16 md:pb-20">
+      <div className="relative z-10 flex-1 flex items-center pt-20 md:pt-12 pb-16 md:pb-20">
 
         {/*
           container-xl → max-width 80rem + padding 1rem/1.5rem/2rem
@@ -205,7 +205,7 @@ export default function Hero({
                   fill + object-cover replaces the absolute-inset pattern.
                 */}
                 <Image
-                  src="/images/developer.webp"
+                  src="/images/developer-hero.webp"
                   alt="Nazgul — your personal developer"
                   fill
                   priority

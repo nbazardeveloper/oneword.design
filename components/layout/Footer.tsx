@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SITE_CONFIG, FOOTER_LINKS } from "@/lib/config";
 import ContactLink from "@/components/ui/ContactLink";
@@ -20,13 +19,9 @@ export default function Footer() {
               className="flex items-center gap-2 font-bold text-white text-lg
                          font-[family-name:var(--font-jakarta)] w-fit"
             >
-              <Image
-                src="/icon.webp"
-                alt=""
-                width={128}
-                height={128}
-                className="h-24 w-24 md:h-32 md:w-32 object-contain"
-              />
+              <span className="text-lg font-extrabold uppercase tracking-[0.18em] text-[color:var(--color-brand-acid)] md:text-xl">
+                oneword
+              </span>
             </Link>
             <p className="text-sm text-neutral-400 max-w-xs leading-relaxed">
               {SITE_CONFIG.tagline}

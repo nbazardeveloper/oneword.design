@@ -5,31 +5,31 @@ import { ZoomParallax } from '@/components/ui/zoom-parallax';
 export default function DefaultDemo() {
 	const images = [
 		{
-			src: '/images/projects/oneword-project-limo-website.webp',
+			src: '/images/projects/demo/oneword-project-limo-website.webp',
 			alt: 'OneWord limo website project',
 		},
 		{
-			src: '/images/projects/oneword-project-beauty-website.webp',
+			src: '/images/projects/demo/oneword-project-beauty-website.webp',
 			alt: 'OneWord beauty website project',
 		},
 		{
-			src: '/images/projects/oneword-project-nail-website.webp',
+			src: '/images/projects/demo/oneword-project-nail-website.webp',
 			alt: 'OneWord nail website project',
 		},
 		{
-			src: '/images/projects/oneword-project-cleaning-website.webp',
+			src: '/images/projects/demo/oneword-project-cleaning-website.webp',
 			alt: 'OneWord cleaning website project',
 		},
 		{
-			src: '/images/projects/oneword-project-limo-whitewebsite.webp',
+			src: '/images/projects/demo/oneword-project-limo-whitewebsite.webp',
 			alt: 'OneWord limo white website project',
 		},
 		{
-			src: '/images/projects/oneword-project-nailsalon-website.webp',
+			src: '/images/projects/demo/oneword-project-nailsalon-website.webp',
 			alt: 'OneWord nail salon website project',
 		},
 		{
-			src: '/images/projects/oneword-project-beauty-websitemobil.webp',
+			src: '/images/projects/demo/oneword-project-beauty-websitemobil.webp',
 			alt: 'OneWord beauty mobile website project',
 		},
 	];

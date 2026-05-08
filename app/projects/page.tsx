@@ -28,7 +28,7 @@ export default function ProjectsPage() {
         ])}
       />
 
-      <main className="hero-surface min-h-screen pt-28 pb-20 md:pt-36 md:pb-24">
+      <main className="hero-surface min-h-screen pt-20 pb-20 md:pt-24 md:pb-24">
         <section className="container-xl">
           <div className="mx-auto max-w-3xl text-center">
             <p

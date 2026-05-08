@@ -115,7 +115,7 @@ export function CtaSectionWithGallery() {
               action="mailto:oneworddevstudio@gmail.com"
               method="post"
               encType="text/plain"
-              className="rounded-[1.75rem] border border-white/10 bg-brand-dark/40 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.24)] md:p-7"
+              className="md:px-2"
             >
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="flex flex-col gap-2 text-sm font-medium text-on-dark">

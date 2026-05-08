@@ -16,6 +16,15 @@ interface ZoomParallaxProps {
 
 export function ZoomParallax({ images }: ZoomParallaxProps) {
 	const container = useRef(null);
+	const imageSizes = [
+		'(max-width: 768px) 82vw, 25vw',
+		'(max-width: 768px) 82vw, 35vw',
+		'(max-width: 768px) 72vw, 20vw',
+		'(max-width: 768px) 82vw, 25vw',
+		'(max-width: 768px) 72vw, 20vw',
+		'(max-width: 768px) 82vw, 30vw',
+		'(max-width: 768px) 60vw, 15vw',
+	];
 	const { scrollYProgress } = useScroll({
 		target: container,
 		offset: ['start start', 'end end'],
@@ -47,7 +56,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 									alt={alt || `Parallax image ${index + 1}`}
 									fill
 									className="object-cover"
-									sizes="25vw"
+									sizes={imageSizes[index % imageSizes.length]}
 									priority={index === 0}
 									loading={index === 0 ? 'eager' : 'lazy'}
 								/>

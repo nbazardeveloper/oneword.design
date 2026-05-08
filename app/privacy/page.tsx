@@ -11,7 +11,7 @@ export const metadata: Metadata = gen({
 
 export default function PrivacyPage() {
   return (
-    <main className="hero-surface min-h-screen pt-28 pb-20 md:pt-36 md:pb-24">
+    <main className="hero-surface min-h-screen pt-20 pb-20 md:pt-24 md:pb-24">
       <section className="container-xl max-w-3xl">
         <h1 className="text-on-dark">Privacy Policy</h1>
         <p className="mt-6 text-lg text-on-dark-muted">
