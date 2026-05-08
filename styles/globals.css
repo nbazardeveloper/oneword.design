@@ -733,35 +733,12 @@ img, picture, video, canvas, svg {
    box-shadow усиливает глубину + acid glow по краю.
    prefers-reduced-motion: убирает transform, оставляет тень.
    ═══════════════════════════════════════════════════════════════════════════ */
+/* portrait-card — статичная карточка без hover-эффектов */
 .portrait-card {
-  transition:
-    transform  0.55s cubic-bezier(0.23, 1, 0.32, 1),
-    box-shadow 0.55s cubic-bezier(0.23, 1, 0.32, 1);
-  will-change: transform;
+  /* transitions removed — no hover animation */
 }
 
-.portrait-card:hover {
-  transform: perspective(1000px) rotateX(-4deg) rotateY(5deg) translateY(-10px);
-  box-shadow:
-    10px 20px 60px rgba(0, 0, 0, 0.55),
-     0   0  24px rgba(207, 245, 71, 0.12),   /* acid edge glow */
-     0   0   0 2px rgba(207, 245, 71, 0.25); /* усиливает acid border */
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .portrait-card { transition: box-shadow 0.3s ease; }
-  .portrait-card:hover {
-    transform: none;
-    box-shadow: 0 0 24px rgba(207, 245, 71, 0.18);
-  }
-}
-
-/*
-  Touch-устройства: hover-состояния «прилипают» после тапа.
-  Отключаем 3D-трансформацию там, где нет настоящего hover.
-*/
 @media (hover: none) {
-  .portrait-card:hover { transform: none; box-shadow: none; }
   .btn-hero-acid:hover { box-shadow: none; transform: none; }
 }
 

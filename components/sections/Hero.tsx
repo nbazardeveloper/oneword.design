@@ -213,7 +213,7 @@ export default function Hero({
                   fill
                   priority
                   sizes="(max-width: 640px) 200px, (max-width: 1024px) 240px, 320px"
-                  className="object-cover grayscale transition-[filter] duration-700 hover:grayscale-0"
+                  className="object-cover"
                 />
 
                 {/* Световые блики */}
