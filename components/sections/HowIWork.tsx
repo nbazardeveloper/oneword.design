@@ -261,7 +261,7 @@ export default function HowIWork() {
             fontSize:      "11px",
             textTransform: "uppercase",
             letterSpacing: "0.2em",
-            color:         "rgba(255,255,255,0.32)",
+            color:         "rgba(255,255,255,0.60)",
           }}
         >
           <span

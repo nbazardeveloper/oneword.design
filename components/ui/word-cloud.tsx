@@ -58,7 +58,10 @@ const keywordList: WordData[] = [
   { text: "Digital-Strategy",          value: 6  },
 ];
 
-const COLORS = ["#2F6B9A", "#82a6c2", "#ffffff", "#f0ede5", "#143059"];
+// All colors must pass 4.5:1 contrast on hero-surface (#162531)
+// #2F6B9A (2.8:1 ✗) → #82c4e8 (8.4:1 ✓)
+// #143059 (1.2:1 ✗) → #a8d5ed (9.8:1 ✓)
+const COLORS = ["#82c4e8", "#82a6c2", "#ffffff", "#f0ede5", "#a8d5ed"];
 const ACCENT = "#cff547";
 const ROTATIONS = [0, -30, 30, -15, 15, -45, 45, 0, -20, 20];
 
