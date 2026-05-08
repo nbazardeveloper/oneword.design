@@ -7,10 +7,7 @@ import { JsonLd, buildFaqSchema } from "@/schemas/jsonld";
 
 const Faq = dynamic(() => import("@/components/sections/Faq"));
 
-const CtaBanner = dynamic(
-  () => import("@/components/sections/CtaBanner"),
-  { ssr: false }
-);
+const CtaBanner = dynamic(() => import("@/components/sections/CtaBanner"));
 
 const FAQ_ITEMS = [
   {
