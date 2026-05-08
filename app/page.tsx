@@ -5,6 +5,17 @@ import HowIWork from "@/components/sections/HowIWork";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { JsonLd, buildFaqSchema } from "@/schemas/jsonld";
 
+// Lazy-loaded below the fold — keeps initial JS bundle small
+const DemoWordcloudChart = dynamic(
+  () => import("@/components/ui/word-cloud-demo"),
+  { loading: () => <div className="h-64 animate-pulse bg-neutral-100" /> }
+);
+
+const DefaultDemo = dynamic(
+  () => import("@/components/ui/demo"),
+  { loading: () => <div className="h-screen animate-pulse bg-neutral-900" /> }
+);
+
 const Faq = dynamic(() => import("@/components/sections/Faq"));
 
 const CtaBanner = dynamic(() => import("@/components/sections/CtaBanner"));
@@ -33,6 +44,7 @@ export default function HomePage() {
     <>
       <JsonLd data={buildFaqSchema({ items: FAQ_ITEMS })} />
 
+      {/* Critical above-the-fold — server-rendered */}
       <Hero
         headline="Your website should attract more clients."
         subheadline="I design and build fast, SEO-optimised websites for businesses serious about growth. Custom-coded from scratch — no templates, no page builders, no compromises."
@@ -47,6 +59,15 @@ export default function HomePage() {
           ariaLabel: "Get in touch to start a new project",
         }}
       />
+
+      {/* Below the fold — lazy loaded */}
+      <Suspense fallback={<div className="h-64 animate-pulse bg-neutral-100" />}>
+        <DemoWordcloudChart />
+      </Suspense>
+
+      <Suspense fallback={<div className="h-screen animate-pulse bg-neutral-900" />}>
+        <DefaultDemo />
+      </Suspense>
 
       <HowIWork />
 
