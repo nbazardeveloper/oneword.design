@@ -5,6 +5,9 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const nextConfig = {
   output: 'export',
+  images: {
+    unoptimized: true, // Добавьте эту строку
+  },
   // ─── Compiler Options ─────────────────────────────────────────
   compiler: {
     removeConsole: process.env.NODE_ENV === "production"
