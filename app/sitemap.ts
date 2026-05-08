@@ -14,6 +14,8 @@ import { SITE_CONFIG } from "@/lib/config";
  *   0.6 = Content/blog
  *   0.4 = Legal / secondary
  */
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_CONFIG.url;
   const now     = new Date();

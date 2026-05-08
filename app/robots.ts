@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_CONFIG } from "@/lib/config";
 
+// Required for output: 'export' (static HTML export mode)
+export const dynamic = "force-static";
+
 /**
  * robots.ts
  *
