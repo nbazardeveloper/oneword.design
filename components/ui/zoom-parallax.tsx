@@ -48,6 +48,8 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 									fill
 									className="object-cover"
 									sizes="25vw"
+									priority={index === 0}
+									loading={index === 0 ? 'eager' : 'lazy'}
 								/>
 							</div>
 						</motion.div>
