@@ -1,9 +1,15 @@
+/** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const nextConfig = {
+  // 1. КРИТИЧЕСКИ ВАЖНО: Создает папку "out" для Cloudflare
   output: 'export',
   
-  // ОБЪЕДИНЕННЫЙ БЛОК IMAGES
+  // 2. ИСПРАВЛЕННЫЙ БЛОК IMAGES: unoptimized теперь работает
   images: {
-    unoptimized: true, // Это ГЛАВНОЕ для Cloudflare Pages
+    unoptimized: true, 
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
@@ -19,22 +25,18 @@ const nextConfig = {
     ],
   },
 
-  // ─── Compiler Options ─────────────────────────────────────────
+  // 3. Остальные настройки
   compiler: {
     removeConsole: process.env.NODE_ENV === "production"
       ? { exclude: ["error", "warn"] }
       : false,
   },
 
-  // ВАЖНО: блок headers не работает с output: 'export' на Cloudflare Pages.
-  // Если вам нужны заголовки, их нужно класть в файл public/_headers.
-  // Но для работы картинок это не критично.
-
-  // ─── Experimental ─────────────────────────────────────────────
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
 
+  // Turbopack settings
   turbopack: {
     root: __dirname,
   },
@@ -42,6 +44,9 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
 };
+
+// 4. ЭКСПОРТ: Обязательно через обертку Analyzer
+module.exports = withBundleAnalyzer(nextConfig);
 
 
 // /** @type {import('next').NextConfig} */
