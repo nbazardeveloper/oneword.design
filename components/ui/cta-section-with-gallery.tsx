@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { type HTMLMotionProps, type Variants, motion } from "motion/react";
+import { type HTMLMotionProps, type Variants, motion } from "framer-motion";
 
 import { Button } from "@/components/ui/Button";
 
