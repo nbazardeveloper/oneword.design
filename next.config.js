@@ -4,6 +4,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 });
 
 const nextConfig = {
+  output: 'export',
   // ─── Compiler Options ─────────────────────────────────────────
   compiler: {
     removeConsole: process.env.NODE_ENV === "production"
